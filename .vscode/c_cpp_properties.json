@@ -26,17 +26,17 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceRoot}",
-                "/usr/local/arduino-1.8.12/hardware/tools",
-                "/usr/local/arduino-1.8.12/libraries",
-                "/home/rob/Arduino/libraries"
+                "${workspaceRoot}/**",
+                "/usr/local/arduino-1.8.12/hardware/tools/**",
+                "/usr/local/arduino-1.8.12/libraries/**",
+                "/home/rob/Arduino/libraries/**"
             ],
             "browse": {
                 "path": [
-                    "${workspaceRoot}",
-                    "/usr/local/arduino-1.8.12/hardware/tools",
-                    "/usr/local/arduino-1.8.12/libraries",                    
-                    "/home/rob/Arduino/libraries"
+                    "${workspaceRoot}/**",
+                    "/usr/local/arduino-1.8.12/hardware/tools/**",
+                    "/usr/local/arduino-1.8.12/libraries/**",                    
+                    "/home/rob/Arduino/libraries/**"
                 ],
                 "limitSymbolsToIncludedHeaders": false
             },

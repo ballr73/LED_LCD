@@ -1,7 +1,6 @@
 #include <LiquidCrystal.h>
 
 
-
 int position = 0;
 int lastPosition = 0;
 int increment = 1;
