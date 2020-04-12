@@ -1,5 +1,7 @@
 #include <LiquidCrystal.h>
 
+
+
 int position = 0;
 int lastPosition = 0;
 int increment = 1;
@@ -16,8 +18,9 @@ void setup()
   lcd.begin(16, 2);
   lcd.print("Hello");
   Serial.begin(9600);
-
-  for (int i = 0; i < sizeof(pins); i++)
+  size_t n = sizeof(pins);
+  size_t i = 0;
+  for (i = 0; i < n; i++)
   {
     pinMode(pins[i], OUTPUT);
   }
@@ -28,7 +31,6 @@ void loop()
   ticks++;
   sensorValue = analogRead(sensorPin);
   outputValue = map(sensorValue, 0, 1023, 0, 1000);
-
   lcd.setCursor(0, 1);
   lcd.print(ticks);
 
