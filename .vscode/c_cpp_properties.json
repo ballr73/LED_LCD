@@ -22,6 +22,27 @@
             "intelliSenseMode": "clang-x64",
             "cStandard": "c11",
             "cppStandard": "c++17"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceRoot}",
+                "/usr/local/arduino-1.8.12/hardware/tools",
+                "/usr/local/arduino-1.8.12/libraries",
+                "/home/rob/Arduino/libraries"
+            ],
+            "browse": {
+                "path": [
+                    "${workspaceRoot}",
+                    "/usr/local/arduino-1.8.12/hardware/tools",
+                    "/usr/local/arduino-1.8.12/libraries",                    
+                    "/home/rob/Arduino/libraries"
+                ],
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         }
     ],
     "version": 4

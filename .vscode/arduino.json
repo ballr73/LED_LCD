@@ -1,5 +1,5 @@
 {
-    "sketch": "Kit.ino",
+    "sketch": "Kit/Kit.ino",
     "port": "COM5",
     "board": "arduino:avr:uno"
 }
