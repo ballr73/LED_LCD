@@ -1,30 +1,35 @@
-//www.elegoo.com
-//2016.12.08
+#define PIN3 3
+#define PIN7 7
+#define PIN13 13
 
-int ledPin = 5;
-int buttonApin = 9;
-int buttonBpin = 8;
-
-byte leds = 0;
-
-void setup() 
+int P3 = 0;
+int P13 = 0;
+void setup()
 {
     Serial.begin(9600);
-  pinMode(ledPin, OUTPUT);
-  pinMode(buttonApin, INPUT_PULLUP);  
-  pinMode(buttonBpin, INPUT_PULLUP);  
+
+    pinMode(PIN3, INPUT);
+    pinMode(PIN7, OUTPUT);
+    pinMode(PIN13, OUTPUT);
 }
 
-void loop() 
+void loop()
 {
-  if (digitalRead(buttonApin) == LOW)
-  {
-    Serial.println("Pin 9 Low");
-    digitalWrite(ledPin, HIGH);
-  }
-  if (digitalRead(buttonBpin) == LOW)
-  {
-    Serial.println("Pin 8 Low");
-    digitalWrite(ledPin, LOW);
-  }
+    P3 = digitalRead(PIN3);
+
+    digitalWrite(13, LOW);
+
+    Serial.println(P3);
+
+    if (P3 == 1)
+    {
+        digitalWrite(PIN7, HIGH);
+    }
+    else
+    {
+        digitalWrite(PIN7, LOW);
+    }
+
+    delay(1000);
+    digitalWrite(PIN13, HIGH);
 }
