@@ -31,8 +31,6 @@ void setup()
 // the loop function runs over and over again forever
 void loop()
 {
-    Serial.println(__DATE__);
-    Serial.println(__TIME__);
     // set the cursor to column 0, line 1
     // (note: line 1 is the second row, since counting begins with 0):
     lcd.setCursor(0, 1);
@@ -64,8 +62,6 @@ void loop()
 void initClock()
 {
     Serial.println("Init RTC module");
-    Serial.println(__DATE__);
-    Serial.println(__TIME__);
 
     clock.begin();
 
