@@ -1,9 +1,14 @@
+#include <Wire.h>
+#include <DS1307RTC.h>
 #include <LiquidCrystal.h>
 
+// init lcd
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 const int v0 = 6;
 const int con = 100;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+// init clock
 
 // the setup function runs once when you press reset or power the board
 void setup()

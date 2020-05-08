@@ -38,6 +38,7 @@
                     "${workspaceRoot}/**",
                     "/usr/local/arduino-1.8.12/hardware/tools/**",
                     "/usr/local/arduino-1.8.12/libraries/**",
+                    "/usr/local/arduino-1.8.12/hardware/arduino/avr/**",
                     "/home/rob/Arduino/libraries/**"
                 ],
                 "limitSymbolsToIncludedHeaders": false
