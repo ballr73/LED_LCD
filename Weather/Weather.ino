@@ -2,6 +2,7 @@
 #include <DS3231.h>
 #include <LiquidCrystal.h>
 
+int pin = 0;
 // init lcd
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 const int v0 = 6;
@@ -24,18 +25,15 @@ void setup()
     analogWrite(v0, con);
     // set up the LCD's number of columns and rows:
     lcd.begin(16, 2);
-    // Print a message to the LCD.
-    lcd.print("hello, world!");
 }
 
 // the loop function runs over and over again forever
 void loop()
 {
-    // set the cursor to column 0, line 1
-    // (note: line 1 is the second row, since counting begins with 0):
+    lcd.setCursor(0, 0);
+    lcd.print(String(dt.day) + "/" + String(dt.month) + "/" + String(dt.year));
     lcd.setCursor(0, 1);
-    // print the number of seconds since reset:
-    lcd.print(millis() / 1000);
+    lcd.print("Temp: 0C");
 
     dt = clock.getDateTime();
 
@@ -53,9 +51,17 @@ void loop()
     Serial.print(dt.second);
     Serial.println("");
 
-    digitalWrite(LED_BUILTIN, HIGH); // turn the LED on (HIGH is the voltage level)
-    delay(1000);                     // wait for a second
-    digitalWrite(LED_BUILTIN, LOW);  // turn the LED off by making the voltage LOW
+    Serial.println(pin);
+    if(pin == 0)
+    {
+        pin = 1;
+        digitalWrite(LED_BUILTIN, HIGH);
+    }
+    else 
+    {
+        pin = 0;
+        digitalWrite(LED_BUILTIN, LOW);
+    }
     delay(1000);                     // wait for a second
 }
 
