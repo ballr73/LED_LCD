@@ -30,12 +30,16 @@ void setup()
 // the loop function runs over and over again forever
 void loop()
 {
+    dt = clock.getDateTime();
+    String dateString = getDateString(dt);
+
     lcd.setCursor(0, 0);
-    lcd.print(String(dt.day) + "/" + String(dt.month) + "/" + String(dt.year));
+    lcd.print(dateString);
     lcd.setCursor(0, 1);
     lcd.print("Temp: 0C");
 
-    dt = clock.getDateTime();
+    Serial.println("Formatted date:");
+    Serial.println(dateString);
 
     Serial.print("Raw data: ");
     Serial.print(dt.year);
@@ -51,20 +55,33 @@ void loop()
     Serial.print(dt.second);
     Serial.println("");
 
-    Serial.println(pin);
-    if(pin == 0)
-    {
-        pin = 1;
-        digitalWrite(LED_BUILTIN, HIGH);
-    }
-    else 
-    {
-        pin = 0;
-        digitalWrite(LED_BUILTIN, LOW);
-    }
-    delay(1000);                     // wait for a second
+    setLED();
+
+    delay(1000); // wait for a second
 }
 
+String getDateString(RTCDateTime rtcDateTime)
+{
+    int n = 10;
+
+    String dayString = String(dt.day);
+
+    if (dt.day < n)
+    {
+        dayString = "0" + dayString;
+    }
+
+    String monthString = String(dt.month);
+
+    if (dt.month < n)
+    {
+        monthString = "0" + monthString;
+    }
+
+    String yearString = String(dt.year);
+    String dateString = dayString + "/" + monthString + "/" + yearString;
+    return dateString;
+}
 void initClock()
 {
     Serial.println("Init RTC module");
@@ -76,4 +93,18 @@ void initClock()
 
     // Send sketch compiling time to Arduino
     clock.setDateTime(__DATE__, __TIME__);
+}
+
+void setLED()
+{
+    if (pin == 0)
+    {
+        pin = 1;
+        digitalWrite(LED_BUILTIN, HIGH);
+    }
+    else
+    {
+        pin = 0;
+        digitalWrite(LED_BUILTIN, LOW);
+    }
 }
