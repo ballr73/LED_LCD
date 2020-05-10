@@ -43,8 +43,8 @@ void setup()
 void loop()
 {
     displayDateTime();
+    displayTemperature();
     setLED();
-
     delay(1000); // wait for a second
 }
 
@@ -55,10 +55,18 @@ void displayDateTime()
     String timeString = getTimeString(dt);
     lcd.setCursor(0, 0);
     lcd.print(dateString + " " + timeString);
-    lcd.setCursor(0, 1);
-    lcd.print("Temp: 0C");
 }
 
+void displayTemperature()
+{
+    sensors.requestTemperatures();
+    Serial.print("Temperature for the device 1 (index 0) is: ");
+    Serial.println(sensors.getTempCByIndex(0));
+    float temperature = sensors.getTempCByIndex(0);
+    String tempString = String(temperature);
+    lcd.setCursor(0, 1);
+    lcd.print("Temp: " + tempString + "C");
+}
 String getDateString(RTCDateTime rtcDateTime)
 {
     int n = 10;
