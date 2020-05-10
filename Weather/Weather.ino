@@ -32,9 +32,9 @@ void loop()
 {
     dt = clock.getDateTime();
     String dateString = getDateString(dt);
-
+    String timeString = getTimeString(dt);
     lcd.setCursor(0, 0);
-    lcd.print(dateString);
+    lcd.print(dateString + " " + timeString);
     lcd.setCursor(0, 1);
     lcd.print("Temp: 0C");
 
@@ -82,17 +82,51 @@ String getDateString(RTCDateTime rtcDateTime)
     String dateString = dayString + "/" + monthString + "/" + yearString;
     return dateString;
 }
+
+String getTimeString(RTCDateTime rtcDateTime)
+{
+    int n = 10;
+
+    String hourString = String(dt.hour);
+
+    if (dt.hour < n)
+    {
+        hourString = "0" + hourString;
+    }
+
+    String minuteString = String(dt.minute);
+
+    if (dt.minute < n)
+    {
+        minuteString = "0" + minuteString;
+    }
+
+    String secondString = String(dt.second);
+
+    if (dt.second < n)
+    {
+        secondString = "0" + secondString;
+    }
+
+    String timeString = hourString + ":" + minuteString + ":" + secondString;
+    return timeString;
+}
+
 void initClock()
 {
     Serial.println("Init RTC module");
 
     clock.begin();
+    RTCDateTime dateTime = clock.getDateTime();
 
-    // Manual (YYYY, MM, DD, HH, II, SS
-    // clock.setDateTime(2016, 12, 9, 11, 46, 00);
+    if (dateTime.year == 2000)
+    {
+        // Manual (YYYY, MM, DD, HH, II, SS
+        // clock.setDateTime(2016, 12, 9, 11, 46, 00);
 
-    // Send sketch compiling time to Arduino
-    clock.setDateTime(__DATE__, __TIME__);
+        // Send sketch compiling time to Arduino
+        clock.setDateTime(__DATE__, __TIME__);
+    }
 }
 
 void setLED()
