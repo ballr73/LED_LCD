@@ -1,34 +1,54 @@
 #include <Wire.h>
 #include <DS3231.h>
 #include <LiquidCrystal.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
 
 int pin = 0;
-// init lcd
+// LCD
 const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
 const int v0 = 6;
-const int con = 100;
+const int con = 100; // LCD contrast
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
-// init clock
+// RTC
 DS3231 clock;
 RTCDateTime dt;
+
+// TEMP
+const int ONE_WIRE_BUS = 2;
+OneWire oneWire(ONE_WIRE_BUS);
+DallasTemperature sensors(&oneWire);
 
 // the setup function runs once when you press reset or power the board
 void setup()
 {
-    Serial.begin(9600);
-
-    initClock();
     // initialize digital pin LED_BUILTIN as an output.
     pinMode(LED_BUILTIN, OUTPUT);
 
+    Serial.begin(9600);
+
+    initClock();
+
+    // LCD contrast
     analogWrite(v0, con);
     // set up the LCD's number of columns and rows:
     lcd.begin(16, 2);
+
+    // Start sensor library
+    sensors.begin();
 }
 
 // the loop function runs over and over again forever
 void loop()
+{
+    displayDateTime();
+    setLED();
+
+    delay(1000); // wait for a second
+}
+
+void displayDateTime()
 {
     dt = clock.getDateTime();
     String dateString = getDateString(dt);
@@ -37,27 +57,6 @@ void loop()
     lcd.print(dateString + " " + timeString);
     lcd.setCursor(0, 1);
     lcd.print("Temp: 0C");
-
-    Serial.println("Formatted date:");
-    Serial.println(dateString);
-
-    Serial.print("Raw data: ");
-    Serial.print(dt.year);
-    Serial.print("-");
-    Serial.print(dt.month);
-    Serial.print("-");
-    Serial.print(dt.day);
-    Serial.print(" ");
-    Serial.print(dt.hour);
-    Serial.print(":");
-    Serial.print(dt.minute);
-    Serial.print(":");
-    Serial.print(dt.second);
-    Serial.println("");
-
-    setLED();
-
-    delay(1000); // wait for a second
 }
 
 String getDateString(RTCDateTime rtcDateTime)
