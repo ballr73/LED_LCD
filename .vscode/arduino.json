@@ -1,5 +1,6 @@
 {
-    "sketch": "Kit/Kit.ino",
-    "port": "COM5",
-    "board": "arduino:avr:uno"
+    "sketch": "Weather/Weather.ino",
+    "port": "/dev/ttyUSB0",
+    "board": "arduino:avr:nano",
+    "configuration": "cpu=atmega328"
 }

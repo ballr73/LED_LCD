@@ -26,6 +26,8 @@
         {
             "name": "Linux",
             "includePath": [
+                "/usr/local/arduino-1.8.12/tools/**",
+                "/usr/local/arduino-1.8.12/hardware/arduino/avr/**",
                 "${workspaceRoot}/**",
                 "/usr/local/arduino-1.8.12/hardware/tools/**",
                 "/usr/local/arduino-1.8.12/libraries/**",
@@ -35,14 +37,18 @@
                 "path": [
                     "${workspaceRoot}/**",
                     "/usr/local/arduino-1.8.12/hardware/tools/**",
-                    "/usr/local/arduino-1.8.12/libraries/**",                    
+                    "/usr/local/arduino-1.8.12/libraries/**",
+                    "/usr/local/arduino-1.8.12/hardware/arduino/avr/**",
                     "/home/rob/Arduino/libraries/**"
                 ],
                 "limitSymbolsToIncludedHeaders": false
             },
             "intelliSenseMode": "clang-x64",
             "cStandard": "c11",
-            "cppStandard": "c++17"
+            "cppStandard": "c++17",
+            "forcedInclude": [
+                "/usr/local/arduino-1.8.12/hardware/arduino/avr/cores/arduino/Arduino.h"
+            ]
         }
     ],
     "version": 4
