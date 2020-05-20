@@ -1,6 +1,6 @@
 {
     "sketch": "Weather/Weather.ino",
-    "port": "/dev/ttyUSB0",
+    "port": "/dev/ttyUSB1",
     "board": "arduino:avr:nano",
     "configuration": "cpu=atmega328"
 }

@@ -1,15 +1,20 @@
 #include <Wire.h>
 #include <DS3231.h>
-#include <LiquidCrystal.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+bool displayingDate = false;
 
 int pin = 0;
-// LCD
-const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
-const int v0 = 6;
-const int con = 100; // LCD contrast
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+// OLED
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 // RTC
 DS3231 clock;
@@ -23,17 +28,19 @@ DallasTemperature sensors(&oneWire);
 // the setup function runs once when you press reset or power the board
 void setup()
 {
+    Serial.begin(9600);
+
     // initialize digital pin LED_BUILTIN as an output.
     pinMode(LED_BUILTIN, OUTPUT);
 
-    Serial.begin(9600);
+    if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
+    { // Address 0x3D for 128x64
+        Serial.println(F("SSD1306 allocation failed"));
+        for (;;)
+            ;
+    }
 
     initClock();
-
-    // LCD contrast
-    analogWrite(v0, con);
-    // set up the LCD's number of columns and rows:
-    lcd.begin(16, 2);
 
     // Start sensor library
     sensors.begin();
@@ -42,10 +49,21 @@ void setup()
 // the loop function runs over and over again forever
 void loop()
 {
+    updateDisplay();
+    setLED();
+    delay(100); // wait for a second
+}
+
+void updateDisplay()
+{
+    display.clearDisplay();
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+
     displayDateTime();
     displayTemperature();
-    setLED();
-    delay(1000); // wait for a second
+
+    display.display();
 }
 
 void displayDateTime()
@@ -53,21 +71,41 @@ void displayDateTime()
     dt = clock.getDateTime();
     String dateString = getDateString(dt);
     String timeString = getTimeString(dt);
-    lcd.setCursor(0, 0);
-    lcd.print(dateString + " " + timeString);
+
+    display.setTextSize(1);
+    display.setCursor(0, 0);
+    display.print(dateString);
+    display.setTextSize(2);
+    display.setCursor(0, 10);
+    display.print(timeString);
+
+    Serial.println(dateString + " " + timeString);
 }
 
 void displayTemperature()
 {
     sensors.requestTemperatures();
-    Serial.print("Temperature for the device 1 (index 0) is: ");
-    Serial.println(sensors.getTempCByIndex(0));
+
     float temperature = sensors.getTempCByIndex(0);
     String tempString = String(temperature);
-    lcd.setCursor(0, 1);
-    lcd.print("Temp: " + tempString + "C");
+
+    display.setTextSize(1);
+    display.setCursor(0, 35);
+    display.print("Temperature: ");
+    display.setTextSize(2);
+    display.setCursor(0, 45);
+    display.print(temperature);
+    display.print(" ");
+    display.setTextSize(1);
+    display.cp437(true);
+    display.write(167);
+    display.setTextSize(2);
+    display.print("C");
+
+    Serial.print("Temperature for the device 1 (index 0) is: ");
+    Serial.println(sensors.getTempCByIndex(0));
 }
-String getDateString(RTCDateTime rtcDateTime)
+String getDateString(RTCDateTime dt)
 {
     int n = 10;
 
@@ -90,7 +128,7 @@ String getDateString(RTCDateTime rtcDateTime)
     return dateString;
 }
 
-String getTimeString(RTCDateTime rtcDateTime)
+String getTimeString(RTCDateTime dt)
 {
     int n = 10;
 
