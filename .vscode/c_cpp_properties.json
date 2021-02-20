@@ -26,19 +26,19 @@
         {
             "name": "Linux",
             "includePath": [
-                "/usr/local/arduino-1.8.12/tools/**",
-                "/usr/local/arduino-1.8.12/hardware/arduino/avr/**",
+                "/usr/local/arduino-1.8.13/tools/**",
+                "/usr/local/arduino-1.8.13/hardware/arduino/avr/**",
                 "${workspaceRoot}/**",
-                "/usr/local/arduino-1.8.12/hardware/tools/**",
-                "/usr/local/arduino-1.8.12/libraries/**",
+                "/usr/local/arduino-1.8.13/hardware/tools/**",
+                "/usr/local/arduino-1.8.13/libraries/**",
                 "/home/rob/Arduino/libraries/**"
             ],
             "browse": {
                 "path": [
                     "${workspaceRoot}/**",
-                    "/usr/local/arduino-1.8.12/hardware/tools/**",
-                    "/usr/local/arduino-1.8.12/libraries/**",
-                    "/usr/local/arduino-1.8.12/hardware/arduino/avr/**",
+                    "/usr/local/arduino-1.8.13/hardware/tools/**",
+                    "/usr/local/arduino-1.8.13/libraries/**",
+                    "/usr/local/arduino-1.8.13/hardware/arduino/avr/**",
                     "/home/rob/Arduino/libraries/**"
                 ],
                 "limitSymbolsToIncludedHeaders": false
@@ -47,7 +47,7 @@
             "cStandard": "c11",
             "cppStandard": "c++17",
             "forcedInclude": [
-                "/usr/local/arduino-1.8.12/hardware/arduino/avr/cores/arduino/Arduino.h"
+                "/usr/local/arduino-1.8.13/hardware/arduino/avr/cores/arduino/Arduino.h"
             ]
         }
     ],
