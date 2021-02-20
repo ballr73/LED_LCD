@@ -1,9 +1,17 @@
+#include <Adafruit_SSD1306.h>
+#include <splash.h>
+
+#include <Adafruit_GFX.h>
+#include <Adafruit_GrayOLED.h>
+#include <Adafruit_SPITFT_Macros.h>
+#include <Adafruit_SPITFT.h>
+#include <gfxfont.h>
+
 #include <Wire.h>
 #include <DS3231.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
+
 
 bool displayingDate = false;
 
@@ -32,7 +40,7 @@ void setup()
 
     // initialize digital pin LED_BUILTIN as an output.
     pinMode(LED_BUILTIN, OUTPUT);
-
+    
     if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
     { // Address 0x3D for 128x64
         Serial.println(F("SSD1306 allocation failed"));
